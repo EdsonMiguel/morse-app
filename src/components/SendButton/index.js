@@ -1,11 +1,11 @@
 import React from 'react';
-import { FaBeer } from 'react-icons/fa';
+//import { FiSend } from 'react-icons/fi';
 import './styles.css'
 
-// import { Container } from './styles';
+
 
 function SendButton() {
-  return <button className="btn"><FaBeer /></button>;
+  return <button className="btn">Enviar</button>;
 }
 
 export default SendButton;

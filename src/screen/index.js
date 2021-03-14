@@ -8,16 +8,17 @@ import mocados from '../config/mocks'
 function screen() {
   return (
     <div className="container">
-      <h1 className="title">Morse</h1>
-      <section className="container">
         <div className="app">
-          <Message data={mocados}/>
-          <Input/>
-          <Send/>
-
+        <div className="header">
+          <h1>Morse</h1>
+        </div>
+          <Message data={mocados} className="msgs"/>
+          <div className="footer">
+            <Input/>
+            <Send/>
+          </div>
         </div>
 
-      </section>
     </div>
   )
 }
