@@ -4,8 +4,16 @@ import './styles.css'
 
 
 
-function SendButton() {
-  return <button className="btn">Enviar</button>;
+function SendButton({ onClick, disabled }) {
+  return(
+    <button
+      className="btn"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      Enviar
+  </button>
+  )
 }
 
 export default SendButton;
