@@ -3,11 +3,12 @@ import './style.css'
 
 // import { Container } from './styles';
 
-function Input() {
+function Input({ placeholder, onChange }) {
   return(
     <input 
       className="input"
-      placeholder="Digite sua mensagem"
+      placeholder={placeholder}
+      onChange={onChange}
     />
   )
 }

@@ -4,8 +4,16 @@ import './styles.css'
 
 // import { Container } from './styles';
 
-function SendButton() {
-  return <button className="btn"><FaBeer /></button>;
+function SendButton({ onClick, disabled }) {
+  return(
+    <button
+      className="btn"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      <FaBeer />
+  </button>
+  )
 }
 
 export default SendButton;
