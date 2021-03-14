@@ -1,8 +1,8 @@
 import React from 'react';
-import { FaBeer } from 'react-icons/fa';
+//import { FiSend } from 'react-icons/fi';
 import './styles.css'
 
-// import { Container } from './styles';
+
 
 function SendButton({ onClick, disabled }) {
   return(
@@ -11,7 +11,7 @@ function SendButton({ onClick, disabled }) {
       onClick={onClick}
       disabled={disabled}
     >
-      <FaBeer />
+      Enviar
   </button>
   )
 }

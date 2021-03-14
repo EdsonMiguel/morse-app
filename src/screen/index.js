@@ -20,24 +20,26 @@ function Screen() {
   }
 
   return (
-    <div className='container'>
-      <h1 className='title'>Morse</h1>
-      <Input
-        placeholder='Entre com seu e-mail'
-        onChange={handleOnChangeEmail}
-      />
-      <Send
-        onClick={handleCallLogin}
-        disabled={email === ''}
-      />
-
-      <section className='container'>
-        <div className='app'>
-          <Message data={mocados} />
-          <Input placeholder='Digite sua mensagem' />
-          <Send/>
+    <div className="container">
+        <div className="app">
+        <div className="header">
+          <h1>Morse</h1>
+          <Input
+          placeholder='Entre com seu e-mail'
+          onChange={handleOnChangeEmail}
+          />
+        <Send
+          onClick={handleCallLogin}
+          disabled={email === ''}
+        />
         </div>
-      </section>
+          <Message data={mocados} className="msgs"/>
+          <div className="footer">
+            <Input/>
+            <Send/>
+          </div>
+        </div>
+
     </div>
   )
 }
