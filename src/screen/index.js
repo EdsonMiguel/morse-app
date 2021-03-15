@@ -1,22 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import Message from '../components/Message';
 import Input from '../components/Input';
 import Send from '../components/SendButton';
-import './style.css'
-import mocados from '../config/mocks'
-import { login } from '../utils/api/auth';
+import './style.css';
 
 function Screen() {
+  const [socket, setSocket] = useState(null);
   const [email, setEmail] = useState('');
+  const [newMessage, setNewMessage] = useState('');
+  const [messages, setMessages] = useState([])
+
+  useEffect(() => {
+    setSocket(io('http://localhost:4000'));
+
+    // if (socket) {
+    //   socket.on('message', payload => {
+    //     setMessages([...messages, {...payload}]);
+    //   });
+    // }
+  }, []);
 
   const handleOnChangeEmail = e => {
     setEmail(e.target.value);
   }
 
-  const handleCallLogin = async () => {
-    console.log('clicou')
-    const response = await login(email);
-    console.log(response);
+  const onChangeNewMessage = e => {
+    setNewMessage(e.target.value);
+  }
+
+  const handleSendMessage = () => {
+    socket.emit('message', {
+      payload: {
+        email: email,
+        content: newMessage
+      }
+    })
   }
 
   return (
@@ -25,18 +44,18 @@ function Screen() {
         <div className="header">
           <h1>Morse</h1>
           <Input
-          placeholder='Entre com seu e-mail'
-          onChange={handleOnChangeEmail}
+            placeholder='Entre com seu e-mail'
+            onChange={handleOnChangeEmail}
+            value={email}
           />
-        <Send
-          onClick={handleCallLogin}
-          disabled={email === ''}
-        />
         </div>
-          <Message data={mocados} className="msgs"/>
+          <Message messages={messages} className="msgs"/>
           <div className="footer">
-            <Input/>
-            <Send/>
+            <Input onChange={onChangeNewMessage} />
+            <Send
+              disabled={newMessage === ''}
+              onClick={handleSendMessage}
+            />
           </div>
         </div>
 
