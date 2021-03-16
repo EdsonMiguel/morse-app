@@ -5,21 +5,34 @@ import Input from '../components/Input';
 import Send from '../components/SendButton';
 import './style.css';
 
+const WS_ENDPOINT = 'http://localhost:4000';
+
 function Screen() {
   const [socket, setSocket] = useState(null);
   const [email, setEmail] = useState('');
   const [newMessage, setNewMessage] = useState('');
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setSocket(io('http://localhost:4000'));
+    if (!socket) {
+      setSocket(io(WS_ENDPOINT));
+    }
 
-    // if (socket) {
-    //   socket.on('message', payload => {
-    //     setMessages([...messages, {...payload}]);
-    //   });
-    // }
+    // console.log('socket: ', socket)
   }, []);
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages])
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('message', (payload) => {
+        console.log('payload: ', payload)
+        setMessages([...messages, {...payload}]);
+      });
+    }
+  })
 
   const handleOnChangeEmail = e => {
     setEmail(e.target.value);
@@ -35,7 +48,9 @@ function Screen() {
         email: email,
         content: newMessage
       }
-    })
+    });
+
+    setNewMessage('');
   }
 
   return (

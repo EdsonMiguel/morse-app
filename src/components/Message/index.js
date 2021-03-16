@@ -5,13 +5,12 @@ function Message({ messages }) {
   // const currentUser = "edson@teste";
   return (
       <div className="area">
-        {
-          messages.map(m => (
+        {messages.map(m => (
               // <div className={msg.author === currentUser ? 'me' : 'you'}>
               //   {msg.data}
               // </div>
               <div className={'me'}>
-                {m.content}
+                {m.payload.content}
               </div>
 
           ))
