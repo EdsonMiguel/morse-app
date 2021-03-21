@@ -35,8 +35,8 @@ function Screen() {
     setMessages([...messages, {payload}]);
   }
 
-  const handleOnChangeEmail = e => {
-    setEmail(e.target.value);
+  const handleOnChangeEmail = ({ target: { value } }) => {
+    setEmail(value);
   }
 
   const onChangeNewMessage = e => {
