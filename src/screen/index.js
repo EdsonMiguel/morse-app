@@ -39,8 +39,8 @@ function Screen() {
     setEmail(value);
   }
 
-  const onChangeNewMessage = e => {
-    setNewMessage(e.target.value);
+  const onChangeNewMessage = ({ target: { value } }) => {
+    setNewMessage(value);
   }
 
   const handleSendMessage = () => {
