@@ -4,7 +4,7 @@ import './styles.css'
 
 const App = () =>{
   return(
-    <Home/>
+    <Home />
   )
 }
 

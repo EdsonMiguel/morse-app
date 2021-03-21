@@ -17,22 +17,23 @@ function Screen() {
     if (!socket) {
       setSocket(io(WS_ENDPOINT));
     }
-
-    // console.log('socket: ', socket)
   }, []);
 
   useEffect(() => {
     console.log(messages);
-  }, [messages])
+  }, [messages]);
 
   useEffect(() => {
     if (socket) {
       socket.on('message', (payload) => {
-        console.log('payload: ', payload)
-        setMessages([...messages, {...payload}]);
+        handlePushMessage(payload);
       });
     }
-  })
+  });
+
+  const handlePushMessage = payload => {
+    setMessages([...messages, {payload}]);
+  }
 
   const handleOnChangeEmail = e => {
     setEmail(e.target.value);
@@ -43,12 +44,14 @@ function Screen() {
   }
 
   const handleSendMessage = () => {
-    socket.emit('message', {
-      payload: {
-        email: email,
-        content: newMessage
-      }
-    });
+    const payload = {
+      email: email,
+      content: newMessage
+    }
+
+    socket.emit('message', { payload });
+
+    handlePushMessage(payload);
 
     setNewMessage('');
   }
@@ -64,9 +67,16 @@ function Screen() {
             value={email}
           />
         </div>
-          <Message messages={messages} className="msgs"/>
+          <Message
+            className="msgs"
+            messages={messages}
+            loggedUser={email}
+          />
           <div className="footer">
-            <Input onChange={onChangeNewMessage} />
+            <Input
+              onChange={onChangeNewMessage}
+              value={newMessage}
+            />
             <Send
               disabled={newMessage === ''}
               onClick={handleSendMessage}
